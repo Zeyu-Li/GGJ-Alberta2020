@@ -249,4 +249,3 @@ public enum Damaged
     Sensors,
     LifeSupport
 };
-
