@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class EventGenerator : MonoBehaviour
 {
-    public int timeMin;
-    public int timeMax;
+    public int majorTimeMin;
+    public int majorTimeMax;
 
-    private float lastTime = -10f;
+    private float lastMajorTime = -10f;
 
-    private float time;
+    private float majorTime;
+
+    public int minorTimeMin;
+    public int minorTimeMax;
+
+    private float lastMinorTime = -10f;
+
+    private float minorTime;
 
     [HideInInspector]
     public bool shieldDamaged = false;
@@ -23,8 +30,27 @@ public class EventGenerator : MonoBehaviour
     public bool sensorsDamaged = false;
     [HideInInspector]
     public bool lifeSupportDamaged = false;
+
     [HideInInspector]
-    public bool fireDamaged = false;
+    public bool jungleFireDamaged = false;
+    [HideInInspector]
+    public bool desertFireDamaged = false;
+    [HideInInspector]
+    public bool oceanFireDamaged = false;
+
+    [HideInInspector]
+    public bool jungleGasDamaged = false;
+    [HideInInspector]
+    public bool desertGasDamaged = false;
+    [HideInInspector]
+    public bool oceanGasDamaged = false;
+
+    [HideInInspector]
+    public bool jungleWindowDamaged = false;
+    [HideInInspector]
+    public bool desertWindowDamaged = false;
+    [HideInInspector]
+    public bool oceanWindowDamaged = false;
 
     private GameObject jungle;
     private GameObject desert;
@@ -50,10 +76,16 @@ public class EventGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > time + lastTime)
+        Major();
+        Minor();
+    }
+
+    private void Major()
+    {
+        if (Time.time > majorTime + lastMajorTime)
         {
-            lastTime = Time.time;
-            time = Random.Range(timeMin, timeMax);
+            lastMajorTime = Time.time;
+            majorTime = Random.Range(majorTimeMin, majorTimeMax);
             Damaged damage = (Damaged)Random.Range(0, 2);
             if (damage == Damaged.Shields && !shieldDamaged)
             {
@@ -84,66 +116,129 @@ public class EventGenerator : MonoBehaviour
                 StartCoroutine(LifeSupport());
             }
         }
+    }
 
-        IEnumerator Shield()
+    private void Minor()
+    {
+        if (Time.time > minorTime + lastMinorTime)
         {
-            yield return new WaitForSeconds(30);
-            while (shieldDamaged)
+            lastMinorTime = Time.time;
+            minorTime = Random.Range(minorTimeMin, minorTimeMax);
+            MinorDamaged damage = (MinorDamaged)Random.Range(0, 3);
+            if (damage == MinorDamaged.Fire)
             {
-                if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
+                int biome = Random.Range(0, 3);
+                if (biome == 0)
                 {
-                    jungle.GetComponent<BiomeHealth>().TakeDamge(10);
-                    yield return new WaitForSeconds(1);
+                    jungleFireDamaged = true;
                 }
-                else if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
+                else if (biome == 1)
                 {
-                    desert.GetComponent<BiomeHealth>().TakeDamge(10);
-                    yield return new WaitForSeconds(1);
+                    desertFireDamaged = true;
                 }
-                else if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
+                else if (biome == 2)
                 {
-                    ocean.GetComponent<BiomeHealth>().TakeDamge(10);
-                    yield return new WaitForSeconds(1);
-                    Debug.Log("1");
+                    oceanFireDamaged = true;
                 }
-                else
+            }
+            else if (damage == MinorDamaged.Gas)
+            {
+                int biome = Random.Range(0, 3);
+                if (biome == 0)
                 {
-                    break;
+                    jungleGasDamaged = true;
+                }
+                else if (biome == 1)
+                {
+                    desertGasDamaged = true;
+                }
+                else if (biome == 2)
+                {
+                    oceanGasDamaged = true;
+                }
+            }
+            else if (damage == MinorDamaged.Window)
+            {
+                int biome = Random.Range(0, 3);
+                if (biome == 0)
+                {
+                    jungleWindowDamaged = true;
+                }
+                else if (biome == 1)
+                {
+                    desertWindowDamaged = true;
+                }
+                else if (biome == 2)
+                {
+                    oceanWindowDamaged = true;
                 }
             }
         }
+    }
 
-        IEnumerator LifeSupport()
+    private IEnumerator Shield()
+    {
+        yield return new WaitForSeconds(30);
+        while (shieldDamaged)
         {
-            yield return new WaitForSeconds(30);
-            while (lifeSupportDamaged)
+            if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
             {
-                if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
-                {
-                    jungle.GetComponent<BiomeHealth>().TakeDamge(10);
-                    yield return new WaitForSeconds(1);
-                }
-                else if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
-                {
-                    desert.GetComponent<BiomeHealth>().TakeDamge(10);
-                    yield return new WaitForSeconds(1);
-                }
-                else if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
-                {
-                    ocean.GetComponent<BiomeHealth>().TakeDamge(10);
-                    yield return new WaitForSeconds(1);
-                    Debug.Log("1");
-                }
-                else
-                {
-                    break;
-                }
+                jungle.GetComponent<BiomeHealth>().TakeDamge(10);
+                yield return new WaitForSeconds(1);
+            }
+            else if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
+            {
+                desert.GetComponent<BiomeHealth>().TakeDamge(10);
+                yield return new WaitForSeconds(1);
+            }
+            else if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
+            {
+                ocean.GetComponent<BiomeHealth>().TakeDamge(10);
+                yield return new WaitForSeconds(1);
+                Debug.Log("1");
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    private IEnumerator LifeSupport()
+    {
+        yield return new WaitForSeconds(30);
+        while (lifeSupportDamaged)
+        {
+            if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
+            {
+                jungle.GetComponent<BiomeHealth>().TakeDamge(10);
+                yield return new WaitForSeconds(1);
+            }
+            else if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
+            {
+                desert.GetComponent<BiomeHealth>().TakeDamge(10);
+                yield return new WaitForSeconds(1);
+            }
+            else if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
+            {
+                ocean.GetComponent<BiomeHealth>().TakeDamge(10);
+                yield return new WaitForSeconds(1);
+                Debug.Log("1");
+            }
+            else
+            {
+                break;
             }
         }
     }
 }
 
-
+public enum MinorDamaged
+{
+    Fire,
+    Window,
+    Gas
+};
 
 public enum Damaged
 {
@@ -152,7 +247,6 @@ public enum Damaged
     Gravity,
     PowerGrid,
     Sensors,
-    LifeSupport,
-    Fire
+    LifeSupport
 };
 
