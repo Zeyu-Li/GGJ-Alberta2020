@@ -83,6 +83,8 @@ public class EventGenerator : MonoBehaviour
                 lifeSupportDamaged = true;
                 StartCoroutine(LifeSupport());
             }
+            
+
         }
 
         IEnumerator Shield()
