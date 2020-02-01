@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
             canClimb = false;
         }
     }
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))

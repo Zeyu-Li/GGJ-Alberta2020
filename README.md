@@ -11,23 +11,24 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 
 - [ ] Name and Logo
   - [x] Logo (Andrew)
+  - [ ] Name
 - [ ] Player design (?)
 - [ ] Background Art (Michael)
 - [ ] Level design (Jarred)
-- [ ] Tile set (Andrew)
+- [x] Tile set (Gaga)
 - [ ] Movement
   - [ ] Zero-G (Ray)
   - [x] General (Jarred)
-- [ ] Camera (Jarred?)
+- [x] Camera (Jarred?)
 - [ ] Timer (?)
-- [ ] Start Screen (Andrew)
-- [ ] Pause (Gage?)
+- [x] Start Screen (Andrew)
+- [ ] Pause (Andrew)
 - [ ] Music (Andrew)
   - [ ] Title (Synth/Futurewave)
   - [ ] Level Song 
-- [ ] Sound Effects (?)
-  - [ ] Jump
-  - [ ] Background sound
+- [x] Sound Effects (Andrew)
+  - [x] Jump
+  - [x] Background sound
 - [ ] \* the rest
 
 ## Controls
@@ -38,10 +39,10 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 
 * Ray - coding (gimmicks)
 * Michael - design, art (background)
-* Gage - coding ?
+* Gage - coding
 * Jarred - coding (movement)
 * Andrew - music, version control, coding
-* Aniket - Coding (**Homework 1**), character design ?
+* Aniket - Coding (**Homework 1**), character design
 
 ## Requires (add-on)
 
