@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     bool grounded = false;
 
 
-    void Update()
+    void FixedUpdate()
     {
 
         if (isZeroG)
@@ -57,9 +57,6 @@ public class PlayerController : MonoBehaviour
         }
         rbody.AddForce(rotate2DVec(movementVec, rbody.rotation), ForceMode2D.Impulse);
 
-
-
-
         if (Input.GetKey(KeyCode.Space))
         {
             rbody.velocity = Vector2.Lerp(rbody.velocity, Vector2.zero, brakeForce * Time.deltaTime);
@@ -74,9 +71,8 @@ public class PlayerController : MonoBehaviour
         }
 
         velocityVec = rbody.velocity;
-
-
     }
+
     Vector2 rotate2DVec(Vector2 v, float angle)
     {
 
