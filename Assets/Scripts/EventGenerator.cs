@@ -20,15 +20,15 @@ public class EventGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > time + lastTime)
+        if (Time.time > Time.time + lastTime)
         {
             time = Random.Range(timeMin, timeMax);
-            //Events event = Random.range(0, 6);
+            Damaged damage = (Damaged)Random.Range(0, 6);
         }
     }
 }
 
-public enum Events
+public enum Damaged
 {
     Shields,
     Engines,
