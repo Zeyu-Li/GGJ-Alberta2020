@@ -12,13 +12,15 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 - [ ] Name and Logo
 - [ ] Player design (?)
 - [ ] Background Art (Michael)
+- [ ] Level design (Jarred)
+- [ ] Tile set (?)
+- [ ] Movement
+  - [ ] Zero-G (Ray)
+  - [x] General (Jarred)
 - [ ] Camera (Jarred?)
 - [ ] Timer (?)
 - [ ] Start Screen (Andrew)
 - [ ] Pause (Gage?)
-- [ ] Movement
-  - [ ] Zero-G (Ray)
-  - [ ] General (Jarred)
 - [ ] Music (Andrew)
   - [ ] Title (Synth/Futurewave)
   - [ ] Level Song 
