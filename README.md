@@ -1,13 +1,20 @@
 
-# Unity 2D Template
+# GGJ - Global Game Jam 2020 - Open Alberta
 
 ## About
 
-This Unity template was made in 2019.3.0f6
+This is for [Global Game Jam 2020 - Open Alberta](https://globalgamejam.org/2020/jam-sites/ggj-edmonton-2020)
+
+Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3)
 
 ## TODO
 
-* 
+* Player
+* Background Art
+* Movement
+* Music
+* Sound Effects
+* \* the rest
 
 ## Layout
 
@@ -32,4 +39,6 @@ This project is under an MIT licence
 
 ## Contributors
 
-* 
+* Me - Music & Coding
+* Ray - Coding
+* Aniket - Coding (homework 1)
