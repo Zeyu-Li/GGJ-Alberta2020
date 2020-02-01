@@ -27,30 +27,66 @@ public class PlayerController : MonoBehaviour
     public float gravity = 20f;
     public float hJGravScaler = 0.6f;
 
-    public float airStrafe = 0.4f;
+
+
+    public float climbSpd = 4f;
 
     //Grounded Vars
     public bool isGrounded = false;
+
+    public bool isClimbing = false;
+    public bool canClimb = false;
+
     private Rigidbody2D rbody;
+    private BoxCollider2D boxCollider;
 
     void Awake()
     {
+        boxCollider = GetComponent<BoxCollider2D>();
         rbody = GetComponent<Rigidbody2D>();
     }
     void FixedUpdate()
     {
-
-        if (isZeroG)
+        if (isClimbing)
         {
-            zeroGMove();
+            Climb();
+        }
+        else if (isZeroG)
+        {
+            ClimbCheck();
+            ZeroGMove();
         }
         else
         {
-            movement();
+            ClimbCheck();
+            Movement();
         }
 
     }
-    void zeroGMove()
+
+    void ClimbCheck()
+    {
+        isClimbing = canClimb && (Mathf.Abs(Input.GetAxis("Vertical")) > 0.2f);
+
+    }
+
+    void Climb()
+    {
+        movementVec = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * climbSpd);
+        if (Input.GetButtonDown("Jump") || !canClimb)
+        {
+            isClimbing = false;
+
+        }
+        if (Input.GetButtonDown("Jump"))
+        {
+            movementVec.y += jump;
+        }
+
+        rbody.velocity = movementVec;
+    }
+
+    void ZeroGMove()
     {
 
 
@@ -64,7 +100,7 @@ public class PlayerController : MonoBehaviour
         {
             movementVec *= overPressure;
         }
-        rbody.AddForce(rotate2DVec(movementVec, rbody.rotation), ForceMode2D.Impulse);
+        rbody.AddForce(Rotate2DVec(movementVec, rbody.rotation), ForceMode2D.Impulse);
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -82,7 +118,7 @@ public class PlayerController : MonoBehaviour
         velocityVec = rbody.velocity;
     }
 
-    Vector2 rotate2DVec(Vector2 v, float angle)
+    Vector2 Rotate2DVec(Vector2 v, float angle)
     {
 
         float cos = Mathf.Cos(angle * Mathf.Deg2Rad);
@@ -90,15 +126,16 @@ public class PlayerController : MonoBehaviour
         return new Vector2(cos * v.x - sin * v.y, sin * v.x + cos * v.y);
 
     }
-    void movement()
+    void Movement()
     {
         // check for movement after being knocked back
 
-        movementVec = new Vector2(speed * Input.GetAxis("Horizontal"), rbody.velocity.y);
 
+        movementVec = new Vector2(speed * Input.GetAxis("Horizontal"), rbody.velocity.y);
         //Jumping
         if (isGrounded)
         {
+
             if (Input.GetButtonDown("Jump"))
             {
                 movementVec.y = jump;
@@ -107,7 +144,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            movementVec.x *= airStrafe;
+
 
 
             float downSpeed = -gravity * Time.fixedDeltaTime;
@@ -130,19 +167,37 @@ public class PlayerController : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
         }*/
 
-
         rbody.velocity = movementVec;
 
 
     }
 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
+        {
+            canClimb = true;
+
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
+        {
+            canClimb = false;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("test");
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             isGrounded = true;
+            isClimbing = false;
         }
+
+
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -151,5 +206,14 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
+        {
+            isClimbing = false;
+            canClimb = false;
+        }
     }
+
+
+
+
 }
