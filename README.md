@@ -12,7 +12,7 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 - [ ] Name and Logo
   - [x] Logo (Andrew)
   - [ ] Name
-- [ ] Player design (?)
+- [ ] Player design (Aniket)
 - [ ] Background Art (Michael)
 - [ ] Level design (Jarred)
 - [x] Tile set (Gaga)
@@ -22,7 +22,6 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 - [x] Camera (Jarred?)
 - [ ] Timer (?)
 - [x] Start Screen (Andrew)
-- [ ] Pause (Andrew)
 - [ ] Music (Andrew)
   - [ ] Title (Synth/Futurewave)
   - [ ] Level Song 
