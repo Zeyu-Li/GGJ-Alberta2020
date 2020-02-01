@@ -9,12 +9,16 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 
 ## TODO
 
-* Player
-* Background Art
-* Movement
-* Music
-* Sound Effects
-* \* the rest
+- [ ] Player
+- [ ] Background Art
+- [x] Movement
+- [ ] Music
+  - [ ] Title (Synth/Futurewave)
+  - [ ] Level Song 
+- [ ] Sound Effects
+  - [ ] Jump
+  - [ ] Background sound
+- [ ] \* the rest
 
 ## Controls
 
@@ -22,8 +26,11 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 
 ## Contributors
 
-* Me - Music & Coding
 * Ray - Coding
+* Michael - Character design, art
+* Gage - Coding
+* Jarred - Coding
+* Andrew - Music & Coding
 * Aniket - Coding (**Homework 1**)
 
 ## Requires (add-on)
