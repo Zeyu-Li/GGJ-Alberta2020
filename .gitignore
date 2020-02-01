@@ -64,4 +64,18 @@ Assets/Scenes/Level7.unity
 # program asset files
 *.ai
 *.psd
-*.fl
+*.flp
+Assets/Sound/jump.flp.meta
+Assets/Music/amb.flp.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Wipe Pattern - Radial Quad.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Wipe Pattern - Radial Double.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Wipe Pattern - Diagonal.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Wipe Pattern - Circle.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Mask Zig-n-Zag.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Sprites/DropCap Numbers.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Wipe Pattern - Radial Quad.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Wipe Pattern - Radial Double.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Wipe Pattern - Diagonal.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Wipe Pattern - Circle.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Textures/Mask Zig-n-Zag.psd.meta
+Assets/TextMesh Pro/Examples & Extras/Sprites/DropCap Numbers.psd.meta
