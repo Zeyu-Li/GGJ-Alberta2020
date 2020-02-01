@@ -30,6 +30,10 @@ public class EventGenerator : MonoBehaviour
     private GameObject desert;
     private GameObject ocean;
 
+    private GameObject player;
+
+    private GameObject globalLight;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +41,10 @@ public class EventGenerator : MonoBehaviour
         jungle = GameObject.Find("Jungle");
         desert = GameObject.Find("Desert");
         ocean = GameObject.Find("Ocean");
+
+        player = GameObject.Find("Player");
+
+        globalLight = GameObject.Find("Global Light 2D");
     }
 
     // Update is called once per frame
@@ -46,39 +54,90 @@ public class EventGenerator : MonoBehaviour
         {
             lastTime = Time.time;
             time = Random.Range(timeMin, timeMax);
-            Damaged damage = (Damaged)Random.Range(0, 0);
+            Damaged damage = (Damaged)Random.Range(0, 2);
             if (damage == Damaged.Shields && !shieldDamaged)
             {
                 shieldDamaged = true;
                 StartCoroutine(Shield());
             }
+            else if (damage == Damaged.Engines && !enginesDamaged)
+            {
+                enginesDamaged = true;
+            }
+            else if (damage == Damaged.Gravity && !gravityDamaged)
+            {
+                gravityDamaged = true;
+                player.GetComponent<PlayerController>().isZeroG = true;
+            }
+            else if (damage == Damaged.PowerGrid && !powerDamaged)
+            {
+                powerDamaged = true;
+                globalLight.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().enabled = false;
+            }
+            else if (damage == Damaged.Sensors && !sensorsDamaged)
+            {
+                sensorsDamaged = true;
+            }
+            else if (damage == Damaged.LifeSupport && !lifeSupportDamaged)
+            {
+                lifeSupportDamaged = true;
+                StartCoroutine(LifeSupport());
+            }
         }
-    }
 
-    private IEnumerator Shield()
-    {
-        yield return new WaitForSeconds(1);
-        while (shieldDamaged)
+        IEnumerator Shield()
         {
-            if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
+            yield return new WaitForSeconds(30);
+            while (shieldDamaged)
             {
-                jungle.GetComponent<BiomeHealth>().TakeDamge(10);
-                yield return new WaitForSeconds(1);
+                if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
+                {
+                    jungle.GetComponent<BiomeHealth>().TakeDamge(10);
+                    yield return new WaitForSeconds(1);
+                }
+                else if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
+                {
+                    desert.GetComponent<BiomeHealth>().TakeDamge(10);
+                    yield return new WaitForSeconds(1);
+                }
+                else if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
+                {
+                    ocean.GetComponent<BiomeHealth>().TakeDamge(10);
+                    yield return new WaitForSeconds(1);
+                    Debug.Log("1");
+                }
+                else
+                {
+                    break;
+                }
             }
-            else if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
+        }
+
+        IEnumerator LifeSupport()
+        {
+            yield return new WaitForSeconds(30);
+            while (lifeSupportDamaged)
             {
-                desert.GetComponent<BiomeHealth>().TakeDamge(10);
-                yield return new WaitForSeconds(1);
-            }
-            else if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
-            {
-                ocean.GetComponent<BiomeHealth>().TakeDamge(10);
-                yield return new WaitForSeconds(1);
-                Debug.Log("1");
-            }
-            else
-            {
-                break;
+                if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
+                {
+                    jungle.GetComponent<BiomeHealth>().TakeDamge(10);
+                    yield return new WaitForSeconds(1);
+                }
+                else if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
+                {
+                    desert.GetComponent<BiomeHealth>().TakeDamge(10);
+                    yield return new WaitForSeconds(1);
+                }
+                else if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
+                {
+                    ocean.GetComponent<BiomeHealth>().TakeDamge(10);
+                    yield return new WaitForSeconds(1);
+                    Debug.Log("1");
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }
