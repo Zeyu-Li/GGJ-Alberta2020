@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform groundCheck;
+
 
     //Movement
     public float speed;
     public float jump;
-    float moveVelocity;
+    public float moveVelocity;
 
     public bool isZeroG = false;
 
@@ -24,10 +24,19 @@ public class PlayerController : MonoBehaviour
     [Range(1f, 2f)]
     public float brakeForce = 1f;
 
+    public float gravity = 20f;
+    public float hJGravScaler = 0.6f;
+
+    public float airStrafe = 0.4f;
+
     //Grounded Vars
-    bool grounded = false;
+    public bool isGrounded = false;
+    private Rigidbody2D rbody;
 
-
+    void Awake()
+    {
+        rbody = GetComponent<Rigidbody2D>();
+    }
     void FixedUpdate()
     {
 
@@ -45,12 +54,12 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        Rigidbody2D rbody = GetComponent<Rigidbody2D>();
+
         if (rbody.velocity.magnitude > maxGlideSpd)
         {
             rbody.velocity = Vector2.ClampMagnitude(rbody.velocity, maxGlideSpd);
         }
-        movementVec = new Vector2(Input.GetAxis("Horizontal") * Time.deltaTime * jetPackAccel, Input.GetAxis("Vertical") * Time.deltaTime * jetPackAccel);
+        movementVec = new Vector2(Input.GetAxis("Horizontal") * Time.fixedDeltaTime * jetPackAccel, Input.GetAxis("Vertical") * Time.fixedDeltaTime * jetPackAccel);
         if (Input.GetKey(KeyCode.LeftShift))
         {
             movementVec *= overPressure;
@@ -59,17 +68,17 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            rbody.velocity = Vector2.Lerp(rbody.velocity, Vector2.zero, brakeForce * Time.deltaTime);
+            rbody.velocity = Vector2.Lerp(rbody.velocity, Vector2.zero, brakeForce * Time.fixedDeltaTime);
         }
         else if (Input.GetKey(KeyCode.E))
         {
-            rbody.rotation += rotationSpd * Time.deltaTime;
+            rbody.rotation += rotationSpd * Time.fixedDeltaTime;
         }
         else if (Input.GetKey(KeyCode.Q))
         {
-            rbody.rotation -= rotationSpd * Time.deltaTime;
+            rbody.rotation -= rotationSpd * Time.fixedDeltaTime;
         }
-
+        //debug
         velocityVec = rbody.velocity;
     }
 
@@ -84,32 +93,63 @@ public class PlayerController : MonoBehaviour
     void movement()
     {
         // check for movement after being knocked back
-        {
-            grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
-            //Jumping
+        movementVec = new Vector2(speed * Input.GetAxis("Horizontal"), rbody.velocity.y);
+
+        //Jumping
+        if (isGrounded)
+        {
             if (Input.GetButtonDown("Jump"))
             {
-                if (grounded)
-                {
-                    GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jump);
-                }
+                movementVec.y = jump;
+
             }
+        }
+        else
+        {
+            movementVec.x *= airStrafe;
 
-            moveVelocity = 0;
 
-            //Left Right Movement
-            if (Input.GetAxis("Horizontal") < 0)
+            float downSpeed = -gravity * Time.fixedDeltaTime;
+            if (Input.GetKey(KeyCode.Space))
             {
-                GetComponent<SpriteRenderer>().flipX = true;
+                downSpeed *= hJGravScaler;
             }
-            else if (Input.GetAxis("Horizontal") > 0)
-            {
-                GetComponent<SpriteRenderer>().flipX = false;
-            }
+            movementVec.y += downSpeed;
+        }
 
-            moveVelocity = speed * Input.GetAxis("Horizontal") * Time.deltaTime;
-            GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
+        //Left Right Movement
+
+        /* !!for testing
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (Input.GetAxis("Horizontal") > 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }*/
+
+
+        rbody.velocity = movementVec;
+
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("test");
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isGrounded = false;
         }
     }
 }
