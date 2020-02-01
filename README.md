@@ -10,10 +10,11 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 ## TODO
 
 - [ ] Name and Logo
+  - [x] Logo (Andrew)
 - [ ] Player design (?)
 - [ ] Background Art (Michael)
 - [ ] Level design (Jarred)
-- [ ] Tile set (?)
+- [ ] Tile set (Andrew)
 - [ ] Movement
   - [ ] Zero-G (Ray)
   - [x] General (Jarred)
