@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
                 grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
                 //Jumping
-                if (Input.GetButtonDown("Jump"))
+                if (Input.GetButtonDown("Vertical"))
                 {
                     if (grounded)
                     {
