@@ -11,7 +11,12 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 
 - [ ] Player
 - [ ] Background Art
-- [x] Movement
+- [ ] Camera
+- [ ] Timer
+- [ ] Start Screen
+- [ ] Name and Logo
+- [ ] Movement
+  - [ ] Zero-G
 - [ ] Music
   - [ ] Title (Synth/Futurewave)
   - [ ] Level Song 
@@ -27,11 +32,11 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 ## Contributors
 
 * Ray - Coding
-* Michael - Character design, art
+* Michael - background design, art
 * Gage - Coding
 * Jarred - Coding
 * Andrew - Music & Coding
-* Aniket - Coding (**Homework 1**)
+* Aniket - Coding (**Homework 1**), character design
 
 ## Requires (add-on)
 
