@@ -26,6 +26,10 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 * Ray - Coding
 * Aniket - Coding (**Homework 1**)
 
+## Requires (add-on)
+
+* TextMeshPro
+
 ## Layout
 
 * _RawFileAssets - use this to store program files, i.e. psd, ai files, etc. OR mp3, png, that may or may not be the final product
