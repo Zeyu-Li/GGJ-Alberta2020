@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground") && other.contacts[0].normal == Vector2.up)
         {
             isGrounded = true;
             isClimbing = false;
