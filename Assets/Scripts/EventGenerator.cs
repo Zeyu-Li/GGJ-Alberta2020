@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class EventGenerator : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class EventGenerator : MonoBehaviour
     private float lastMinorTime = -10f;
 
     private float minorTime;
+
+    [Header("screenShakeVariables")]
+    public AnimationCurve shakeAmpCurve;
+    public AnimationCurve shakeFreqCurve;
+    public CinemachineVirtualCamera vcam;
 
     [HideInInspector]
     public bool shieldDamaged = false;
@@ -84,6 +90,7 @@ public class EventGenerator : MonoBehaviour
     {
         if (Time.time > majorTime + lastMajorTime)
         {
+            StartCoroutine(ScreenShake());
             lastMajorTime = Time.time;
             majorTime = Random.Range(majorTimeMin, majorTimeMax);
             Damaged damage = (Damaged)Random.Range(0, 2);
@@ -152,14 +159,17 @@ public class EventGenerator : MonoBehaviour
                 if (biome == 0)
                 {
                     jungleGasDamaged = true;
+                    jungle.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 else if (biome == 1)
                 {
                     desertGasDamaged = true;
+                    jungle.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 else if (biome == 2)
                 {
                     oceanGasDamaged = true;
+                    jungle.transform.GetChild(1).gameObject.SetActive(true);
                 }
             }
             else if (damage == MinorDamaged.Window)
@@ -235,6 +245,21 @@ public class EventGenerator : MonoBehaviour
                 break;
             }
         }
+    }
+    private IEnumerator ScreenShake()
+    {
+        float timer = 0;
+        float maxTime = shakeAmpCurve.keys[shakeAmpCurve.keys.Length - 1].time;
+
+        while (timer <= maxTime)
+        {
+            Debug.Log("shake,shake,shake!!!");
+            vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = shakeAmpCurve.Evaluate(timer);
+            vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = shakeFreqCurve.Evaluate(timer);
+            timer += Time.deltaTime;
+            yield return 0;
+        }
+
     }
 }
 
