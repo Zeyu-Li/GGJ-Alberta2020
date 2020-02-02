@@ -31,7 +31,7 @@ public class Minimap : MonoBehaviour
     };
         foreach (string key in errorDots.Keys)
         {
-            print("check");
+
             errorDots[key].enabled = (false);
         }
     }
@@ -40,6 +40,7 @@ public class Minimap : MonoBehaviour
     {
         if (events.damageStatus["sensor"])
         {
+
             foreach (string key in errorDots.Keys)
             {
                 errorDots[key].enabled = (int)Time.time % 2 == 1;
@@ -47,10 +48,15 @@ public class Minimap : MonoBehaviour
         }
         else
         {
+
+
             foreach (string key in events.GetDamaged())
             {
+
+
                 if (events.damageStatus[key])
                 {
+
                     errorDots[key].enabled = (int)Time.time % 2 == 1;
                 }
                 else

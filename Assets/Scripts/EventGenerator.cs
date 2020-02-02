@@ -151,7 +151,7 @@ public class EventGenerator : MonoBehaviour
         }
         if (damageStatus["engine"] == false)
         {
-            engineParticles.SetActive(true);
+            engineParticles.transform.GetChild(0).gameObject.SetActive(true);
         }
 
     }
@@ -171,7 +171,7 @@ public class EventGenerator : MonoBehaviour
             else if (damage == Damaged.Engines && !enginesDamaged)
             {
                 damageStatus["engine"] = true;
-                engineParticles.SetActive(false);
+                engineParticles.transform.GetChild(0).gameObject.SetActive(false);
             }
             else if (damage == Damaged.Gravity && !gravityDamaged)
             {
