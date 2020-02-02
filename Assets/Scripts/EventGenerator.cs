@@ -115,6 +115,8 @@ public class EventGenerator : MonoBehaviour
                 lifeSupportDamaged = true;
                 StartCoroutine(LifeSupport());
             }
+            
+
         }
     }
 
@@ -131,14 +133,17 @@ public class EventGenerator : MonoBehaviour
                 if (biome == 0)
                 {
                     jungleFireDamaged = true;
+                    jungle.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 else if (biome == 1)
                 {
                     desertFireDamaged = true;
+                    desert.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 else if (biome == 2)
                 {
                     oceanFireDamaged = true;
+                    ocean.transform.GetChild(0).gameObject.SetActive(true);
                 }
             }
             else if (damage == MinorDamaged.Gas)
