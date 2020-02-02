@@ -102,7 +102,12 @@ public class Fix : MonoBehaviour
             isTouchingPlayer = false;
         }
     }
+
     void FixRoom()
+    {
+        events.damageStatus[fixType] = false;
+    }
+    /*void FixRoom()
     {
         switch (fixType)
         {
@@ -156,9 +161,14 @@ public class Fix : MonoBehaviour
             default:
                 break;
         }
+    }*/
+    bool isDamaged()
+    {
+
+        return events.GetDamaged().Contains(fixType);
     }
 
-    bool isDamaged()
+    /*bool isDamaged()
     {
         switch (fixType)
         {
@@ -213,5 +223,5 @@ public class Fix : MonoBehaviour
                 return false;
 
         }
-    }
+    }*/
 }

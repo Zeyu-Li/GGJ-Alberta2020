@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class EventGenerator : MonoBehaviour
 {
@@ -18,11 +17,6 @@ public class EventGenerator : MonoBehaviour
     private float lastMinorTime = -10f;
 
     private float minorTime;
-
-    [Header("screenShakeVariables")]
-    public AnimationCurve shakeAmpCurve;
-    public AnimationCurve shakeFreqCurve;
-    public CinemachineVirtualCamera vcam;
 
     [HideInInspector]
     public bool shieldDamaged = false;
@@ -58,6 +52,24 @@ public class EventGenerator : MonoBehaviour
     [HideInInspector]
     public bool oceanWindowDamaged = false;
 
+
+    public Dictionary<string, bool> damageStatus = new Dictionary<string, bool>(){
+         {"shield", false},
+        {"engine", false},
+        {"gravity", false},
+        {"power", false},
+        {"sensor", false},
+        {"lifeSupport", false},
+        {"jungleFire", false},
+        {"jungleGas", false},
+        {"jungleWindow", false},
+        {"desertFire", false},
+        {"desertGas", false},
+        {"desertWindow", false},
+        {"oceaFire", false},
+        {"oceanGas", false},
+        {"oceanWindow", false}
+    };
     private GameObject jungle;
     private GameObject desert;
     private GameObject ocean;
@@ -86,43 +98,55 @@ public class EventGenerator : MonoBehaviour
         Minor();
     }
 
+    public List<string> GetDamaged()
+    {
+        List<string> temp = new List<string>();
+        foreach (string key in damageStatus.Keys)
+        {
+            if (damageStatus[key])
+            {
+                temp.Add(key);
+            }
+        }
+        return temp;
+    }
+
     private void Major()
     {
         if (Time.time > majorTime + lastMajorTime)
         {
-            StartCoroutine(ScreenShake());
             lastMajorTime = Time.time;
             majorTime = Random.Range(majorTimeMin, majorTimeMax);
-            Damaged damage = (Damaged)Random.Range(0, 2);
+            Damaged damage = (Damaged)Random.Range(0, 6);
             if (damage == Damaged.Shields && !shieldDamaged)
             {
-                shieldDamaged = true;
+                damageStatus["shield"] = true;
                 StartCoroutine(Shield());
             }
             else if (damage == Damaged.Engines && !enginesDamaged)
             {
-                enginesDamaged = true;
+                damageStatus["engine"] = true;
             }
             else if (damage == Damaged.Gravity && !gravityDamaged)
             {
-                gravityDamaged = true;
+                damageStatus["gravity"] = true;
                 player.GetComponent<PlayerController>().isZeroG = true;
             }
             else if (damage == Damaged.PowerGrid && !powerDamaged)
             {
-                powerDamaged = true;
+                damageStatus["power"] = true;
                 globalLight.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().enabled = false;
             }
             else if (damage == Damaged.Sensors && !sensorsDamaged)
             {
-                sensorsDamaged = true;
+                damageStatus["sensor"] = true;
             }
             else if (damage == Damaged.LifeSupport && !lifeSupportDamaged)
             {
-                lifeSupportDamaged = true;
+                damageStatus["lifeSupport"] = true;
                 StartCoroutine(LifeSupport());
             }
-            
+
 
         }
     }
@@ -139,17 +163,17 @@ public class EventGenerator : MonoBehaviour
                 int biome = Random.Range(0, 3);
                 if (biome == 0)
                 {
-                    jungleFireDamaged = true;
+                    damageStatus["jungleFire"] = true;
                     jungle.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 else if (biome == 1)
                 {
-                    desertFireDamaged = true;
+                    damageStatus["desertFire"] = true;
                     desert.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 else if (biome == 2)
                 {
-                    oceanFireDamaged = true;
+                    damageStatus["oceanFire"] = true;
                     ocean.transform.GetChild(0).gameObject.SetActive(true);
                 }
             }
@@ -158,18 +182,15 @@ public class EventGenerator : MonoBehaviour
                 int biome = Random.Range(0, 3);
                 if (biome == 0)
                 {
-                    jungleGasDamaged = true;
-                    jungle.transform.GetChild(1).gameObject.SetActive(true);
+                    damageStatus["jungleGas"] = true;
                 }
                 else if (biome == 1)
                 {
-                    desertGasDamaged = true;
-                    jungle.transform.GetChild(1).gameObject.SetActive(true);
+                    damageStatus["desertGas"] = true;
                 }
                 else if (biome == 2)
                 {
-                    oceanGasDamaged = true;
-                    jungle.transform.GetChild(1).gameObject.SetActive(true);
+                    damageStatus["oceanGas"] = true;
                 }
             }
             else if (damage == MinorDamaged.Window)
@@ -177,15 +198,15 @@ public class EventGenerator : MonoBehaviour
                 int biome = Random.Range(0, 3);
                 if (biome == 0)
                 {
-                    jungleWindowDamaged = true;
+                    damageStatus["jungleWindow"] = true;
                 }
                 else if (biome == 1)
                 {
-                    desertWindowDamaged = true;
+                    damageStatus["desertWindow"] = true;
                 }
                 else if (biome == 2)
                 {
-                    oceanWindowDamaged = true;
+                    damageStatus["oceanWindow"] = true;
                 }
             }
         }
@@ -245,21 +266,6 @@ public class EventGenerator : MonoBehaviour
                 break;
             }
         }
-    }
-    private IEnumerator ScreenShake()
-    {
-        float timer = 0;
-        float maxTime = shakeAmpCurve.keys[shakeAmpCurve.keys.Length - 1].time;
-
-        while (timer <= maxTime)
-        {
-            Debug.Log("shake,shake,shake!!!");
-            vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = shakeAmpCurve.Evaluate(timer);
-            vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = shakeFreqCurve.Evaluate(timer);
-            timer += Time.deltaTime;
-            yield return 0;
-        }
-
     }
 }
 
