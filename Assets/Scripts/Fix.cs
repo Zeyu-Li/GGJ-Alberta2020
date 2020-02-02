@@ -29,7 +29,7 @@ public class Fix : MonoBehaviour
         {"desertFire", 1},
         {"desertGas", 1},
         {"desertWindow", 1},
-        {"oceaFire", 1},
+        {"oceanFire", 1},
         {"oceanGas", 1},
         {"oceanWindow", 1},
 

@@ -25,7 +25,7 @@ public class Minimap : MonoBehaviour
         {"desertFire", transform.GetChild(7).GetComponent<Image>()},
         {"desertGas", transform.GetChild(7).GetComponent<Image>()},
         {"desertWindow", transform.GetChild(7).GetComponent<Image>()},
-        {"oceaFire", transform.GetChild(8).GetComponent<Image>()},
+        {"oceanFire", transform.GetChild(8).GetComponent<Image>()},
         {"oceanGas", transform.GetChild(8).GetComponent<Image>()},
         {"oceanWindow", transform.GetChild(8).GetComponent<Image>()}
     };

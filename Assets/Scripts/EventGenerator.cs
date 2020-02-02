@@ -66,7 +66,7 @@ public class EventGenerator : MonoBehaviour
         {"desertFire", false},
         {"desertGas", false},
         {"desertWindow", false},
-        {"oceaFire", false},
+        {"oceanFire", false},
         {"oceanGas", false},
         {"oceanWindow", false}
     };
@@ -96,6 +96,7 @@ public class EventGenerator : MonoBehaviour
     {
         Major();
         Minor();
+        CheckFixing();
     }
 
     public List<string> GetDamaged()
@@ -111,6 +112,42 @@ public class EventGenerator : MonoBehaviour
         return temp;
     }
 
+    void CheckFixing()
+    {
+        if (damageStatus["gravity"] == false)
+        {
+            player.GetComponent<PlayerController>().isZeroG = false;
+        }
+        if (damageStatus["power"] == false)
+        {
+            globalLight.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().enabled = true;
+        }
+        if (damageStatus["jungleFire"] == false)
+        {
+            jungle.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        if (damageStatus["desertFire"] == false)
+        {
+            desert.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        if (damageStatus["oceanFire"] == false)
+        {
+            ocean.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        if (damageStatus["jungleGas"] == false)
+        {
+            jungle.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        if (damageStatus["desertGas"] == false)
+        {
+            jungle.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        if (damageStatus["oceanGas"] == false)
+        {
+            jungle.transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+    }
     private void Major()
     {
         if (Time.time > majorTime + lastMajorTime)
@@ -184,14 +221,17 @@ public class EventGenerator : MonoBehaviour
                 if (biome == 0)
                 {
                     damageStatus["jungleGas"] = true;
+                    jungle.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 else if (biome == 1)
                 {
                     damageStatus["desertGas"] = true;
+                    jungle.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 else if (biome == 2)
                 {
                     damageStatus["oceanGas"] = true;
+                    jungle.transform.GetChild(1).gameObject.SetActive(true);
                 }
             }
             else if (damage == MinorDamaged.Window)
@@ -216,7 +256,7 @@ public class EventGenerator : MonoBehaviour
     private IEnumerator Shield()
     {
         yield return new WaitForSeconds(30);
-        while (shieldDamaged)
+        while (damageStatus["shield"])
         {
             if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
             {
@@ -244,7 +284,7 @@ public class EventGenerator : MonoBehaviour
     private IEnumerator LifeSupport()
     {
         yield return new WaitForSeconds(30);
-        while (lifeSupportDamaged)
+        while (damageStatus["lifeSupport"])
         {
             if (jungle.GetComponent<BiomeHealth>().currentHealth > 0)
             {
