@@ -38,15 +38,25 @@ public class Minimap : MonoBehaviour
 
     void Update()
     {
-        foreach (string key in events.GetDamaged())
+        if (events.damageStatus["sensor"])
         {
-            if (events.damageStatus[key])
+            foreach (string key in errorDots.Keys)
             {
                 errorDots[key].enabled = (int)Time.time % 2 == 1;
             }
-            else
+        }
+        else
+        {
+            foreach (string key in events.GetDamaged())
             {
-                errorDots[key].enabled = false;
+                if (events.damageStatus[key])
+                {
+                    errorDots[key].enabled = (int)Time.time % 2 == 1;
+                }
+                else
+                {
+                    errorDots[key].enabled = false;
+                }
             }
         }
     }
