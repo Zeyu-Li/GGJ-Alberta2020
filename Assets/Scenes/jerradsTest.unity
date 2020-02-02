@@ -900,15 +900,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f44f9bbcd1d814dbf29b2bb015c67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeMin: 0
-  timeMax: 1
+  majorTimeMin: 0
+  majorTimeMax: 0
+  minorTimeMin: 0
+  minorTimeMax: 0
   shieldDamaged: 0
   enginesDamaged: 0
   gravityDamaged: 0
   powerDamaged: 0
   sensorsDamaged: 0
   lifeSupportDamaged: 0
-  fireDamaged: 0
+  jungleFireDamaged: 0
+  desertFireDamaged: 0
+  oceanFireDamaged: 0
+  jungleGasDamaged: 0
+  desertGasDamaged: 0
+  oceanGasDamaged: 0
+  jungleWindowDamaged: 0
+  desertWindowDamaged: 0
+  oceanWindowDamaged: 0
 --- !u!4 &1278904029
 Transform:
   m_ObjectHideFlags: 0
@@ -1016,9 +1026,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1ab04f1a186c643a54b75804597fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 153581272}
   speed: 300
   jump: 6
+  moveVelocity: 0
+  isZeroG: 0
+  jetPackAccel: 0.3
+  rotationSpd: 0.3
+  maxGlideSpd: 6
+  overPressure: 1.6
+  movementVec: {x: 0, y: 0}
+  velocityVec: {x: 0, y: 0}
+  brakeForce: 1
+  gravity: 20
+  hJGravScaler: 0.6
+  climbSpd: 4
+  isGrounded: 0
+  isClimbing: 0
+  canClimb: 0
 --- !u!212 &1300807035
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1287,7 +1311,7 @@ SpriteRenderer:
   m_Size: {x: 20.48, y: 20.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1938193219
