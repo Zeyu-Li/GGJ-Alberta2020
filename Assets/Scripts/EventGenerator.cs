@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 public class EventGenerator : MonoBehaviour
 {
     public int majorTimeMin;
@@ -96,6 +98,12 @@ public class EventGenerator : MonoBehaviour
     {
         Major();
         Minor();
+        if (jungle.GetComponent<BiomeHealth>().currentHealth <= 0 &&
+            desert.GetComponent<BiomeHealth>().currentHealth <= 0 &&
+            ocean.GetComponent<BiomeHealth>().currentHealth <= 0)
+        {
+            SceneManager.LoadScene("Lose");
+        }
     }
 
     public List<string> GetDamaged()
@@ -147,8 +155,6 @@ public class EventGenerator : MonoBehaviour
                 damageStatus["lifeSupport"] = true;
                 StartCoroutine(LifeSupport());
             }
-
-
         }
     }
 
@@ -158,7 +164,7 @@ public class EventGenerator : MonoBehaviour
         {
             lastMinorTime = Time.time;
             minorTime = Random.Range(minorTimeMin, minorTimeMax);
-            MinorDamaged damage = (MinorDamaged)Random.Range(0, 3);
+            MinorDamaged damage = (MinorDamaged)Random.Range(0, 2);
             if (damage == MinorDamaged.Fire)
             {
                 int biome = Random.Range(0, 3);
@@ -192,22 +198,6 @@ public class EventGenerator : MonoBehaviour
                 else if (biome == 2)
                 {
                     damageStatus["oceanGas"] = true;
-                }
-            }
-            else if (damage == MinorDamaged.Window)
-            {
-                int biome = Random.Range(0, 3);
-                if (biome == 0)
-                {
-                    damageStatus["jungleWindow"] = true;
-                }
-                else if (biome == 1)
-                {
-                    damageStatus["desertWindow"] = true;
-                }
-                else if (biome == 2)
-                {
-                    damageStatus["oceanWindow"] = true;
                 }
             }
         }

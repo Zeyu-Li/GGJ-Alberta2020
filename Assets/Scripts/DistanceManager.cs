@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DistanceManager : MonoBehaviour
 {
@@ -28,5 +29,10 @@ public class DistanceManager : MonoBehaviour
             timeLeft -= Time.deltaTime / 2;
         }
         currentDistance = timeLeft * 33333.33f;
+
+        if (currentDistance <= 0)
+        {
+            SceneManager.LoadScene("Win");
+        }
     }
 }
