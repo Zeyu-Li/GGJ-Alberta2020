@@ -28,6 +28,5 @@ public class DistanceManager : MonoBehaviour
             timeLeft -= Time.deltaTime / 2;
         }
         currentDistance = timeLeft * 33333.33f;
-        Debug.Log(currentDistance);
     }
 }

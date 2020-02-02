@@ -15,8 +15,11 @@ public class UI : MonoBehaviour
     private GameObject desert;
     private GameObject ocean;
 
+
+  
     void Start()
     {
+       
         manager = GameObject.Find("Manager");
         jungle = GameObject.Find("Jungle");
         desert = GameObject.Find("Desert");
@@ -30,9 +33,11 @@ public class UI : MonoBehaviour
 
     void Update()
     {
-        distance.text = (Mathf.Clamp(manager.GetComponent<DistanceManager>().currentDistance, 0, 9999999)/1000000 ).ToString("0.00") + " million Km";
+        distance.text = (Mathf.Clamp(manager.GetComponent<DistanceManager>().currentDistance, 0, 9999999) / 1000000).ToString("0.00") + " million Km";
         jungleHealth.text = (Mathf.Clamp(jungle.GetComponent<BiomeHealth>().currentHealth, 0, 100).ToString()) + " %";
         desertHealth.text = (Mathf.Clamp(desert.GetComponent<BiomeHealth>().currentHealth, 0, 100).ToString()) + " %";
         oceanHealth.text = (Mathf.Clamp(ocean.GetComponent<BiomeHealth>().currentHealth, 0, 100).ToString()) + " %";
     }
+
+  
 }
