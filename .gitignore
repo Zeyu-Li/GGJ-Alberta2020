@@ -62,6 +62,8 @@ Assets/Scenes/Level6.unity
 Assets/Scenes/Level7.unity
 
 # program asset files
+
+*.ai
 *.flp
 Assets/Sound/jump.flp.meta
 Assets/Music/amb.flp.meta
