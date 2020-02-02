@@ -115,6 +115,7 @@ public class EventGenerator : MonoBehaviour
     {
         if (Time.time > majorTime + lastMajorTime)
         {
+            // TODO: Start alarm
             lastMajorTime = Time.time;
             majorTime = Random.Range(majorTimeMin, majorTimeMax);
             Damaged damage = (Damaged)Random.Range(0, 6);
