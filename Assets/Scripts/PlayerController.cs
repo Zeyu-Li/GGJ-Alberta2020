@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        transform.parent = null;
         if (isClimbing)
         {
             Climb();
@@ -136,18 +137,13 @@ public class PlayerController : MonoBehaviour
         //Jumping
         if (isGrounded)
         {
-
             if (Input.GetButtonDown("Jump"))
             {
                 movementVec.y = jump;
-
             }
         }
         else
         {
-
-
-
             float downSpeed = -gravity * Time.fixedDeltaTime;
             if (Input.GetKey(KeyCode.Space))
             {
@@ -169,8 +165,6 @@ public class PlayerController : MonoBehaviour
         }*/
 
         rbody.velocity = movementVec;
-
-
     }
 
 
@@ -192,10 +186,16 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground") && other.contacts[0].normal == Vector2.up)
         {
             isGrounded = true;
             isClimbing = false;
+        }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+        {
+            isGrounded = true;
+            isClimbing = false;
+            transform.SetParent(other.gameObject.transform);
         }
 
 
@@ -211,6 +211,10 @@ public class PlayerController : MonoBehaviour
         {
             isClimbing = false;
             canClimb = false;
+        }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+        {
+            isGrounded = false;
         }
     }
 
