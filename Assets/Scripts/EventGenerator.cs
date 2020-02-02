@@ -77,6 +77,7 @@ public class EventGenerator : MonoBehaviour
     private GameObject player;
 
     private GameObject globalLight;
+    private GameObject engineParticles;
 
 
     // Start is called before the first frame update
@@ -89,6 +90,8 @@ public class EventGenerator : MonoBehaviour
         player = GameObject.Find("Player");
 
         globalLight = GameObject.Find("Global Light 2D");
+        engineParticles = GameObject.FindGameObjectWithTag("EngineParticle");
+
     }
 
     // Update is called once per frame
@@ -146,6 +149,10 @@ public class EventGenerator : MonoBehaviour
         {
             jungle.transform.GetChild(0).gameObject.SetActive(false);
         }
+        if (damageStatus["engine"] == false)
+        {
+            engineParticles.SetActive(true);
+        }
 
     }
     private void Major()
@@ -164,6 +171,7 @@ public class EventGenerator : MonoBehaviour
             else if (damage == Damaged.Engines && !enginesDamaged)
             {
                 damageStatus["engine"] = true;
+                engineParticles.SetActive(false);
             }
             else if (damage == Damaged.Gravity && !gravityDamaged)
             {
