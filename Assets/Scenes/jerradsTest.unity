@@ -1066,6 +1066,19 @@ MonoBehaviour:
   majorTimeMax: 0
   minorTimeMin: 0
   minorTimeMax: 0
+  shakeAmpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeFreqCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  vcam: {fileID: 0}
   shieldDamaged: 0
   enginesDamaged: 0
   gravityDamaged: 0
@@ -1188,7 +1201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1ab04f1a186c643a54b75804597fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 300
+  speed: 10
   jump: 6
   moveVelocity: 0
   isZeroG: 0
