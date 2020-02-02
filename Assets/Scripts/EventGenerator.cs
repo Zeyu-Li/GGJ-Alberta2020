@@ -11,7 +11,7 @@ public class EventGenerator : MonoBehaviour
 
     private float time;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool shieldDamaged = false;
     [HideInInspector]
     public bool enginesDamaged = false;
@@ -50,7 +50,17 @@ public class EventGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
         if (Time.time > time + lastTime)
+=======
+        //Major();
+        //Minor();
+    }
+
+    private void Major()
+    {
+        if (Time.time > majorTime + lastMajorTime)
+>>>>>>> Stashed changes
         {
             lastTime = Time.time;
             time = Random.Range(timeMin, timeMax);
@@ -83,7 +93,7 @@ public class EventGenerator : MonoBehaviour
                 lifeSupportDamaged = true;
                 StartCoroutine(LifeSupport());
             }
-            
+
 
         }
 

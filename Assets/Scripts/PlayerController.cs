@@ -47,9 +47,10 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        transform.parent = null;
+
         if (isClimbing)
         {
+            print("actuallyClimbing:" + isClimbing);
             Climb();
         }
         else if (isZeroG)
@@ -67,12 +68,17 @@ public class PlayerController : MonoBehaviour
 
     void ClimbCheck()
     {
-        isClimbing = canClimb && (Mathf.Abs(Input.GetAxis("Vertical")) > 0.2f);
+        isClimbing = canClimb && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S));
+
+        print("climb:" + canClimb);
+        print("Key:" + (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)));
+
 
     }
 
     void Climb()
     {
+
         movementVec = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * climbSpd);
         if (Input.GetButtonDown("Jump") || !canClimb)
         {
@@ -89,9 +95,6 @@ public class PlayerController : MonoBehaviour
 
     void ZeroGMove()
     {
-
-
-
         if (rbody.velocity.magnitude > maxGlideSpd)
         {
             rbody.velocity = Vector2.ClampMagnitude(rbody.velocity, maxGlideSpd);
@@ -167,7 +170,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
         {
@@ -206,18 +209,24 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
-        {
-            isClimbing = false;
-            canClimb = false;
-        }
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
         {
             isGrounded = false;
         }
     }
 
+<<<<<<< Updated upstream
 
 
+=======
+    private void Update()
+    {
+        if (Input.GetKey("escape"))
+        {
+            SceneManager.LoadScene("startLevel");
+        }
+    }
+>>>>>>> Stashed changes
 
 }
