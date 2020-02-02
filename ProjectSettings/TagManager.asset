@@ -20,7 +20,7 @@ TagManager:
   - Camera
   - Platform
   - miniMap
-  - space
+  - 
   - 
   - 
   - 
@@ -41,7 +41,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Windows
-    uniqueID: 2642564807
     locked: 0
