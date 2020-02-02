@@ -40,9 +40,12 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rbody;
     private BoxCollider2D boxCollider;
+    public Animator anim;
+    public Transform spaceGuy;
 
     void Awake()
     {
+        //anim = gameObject.GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         rbody = GetComponent<Rigidbody2D>();
     }
@@ -69,7 +72,7 @@ public class PlayerController : MonoBehaviour
     void ClimbCheck()
     {
         isClimbing = canClimb && (Mathf.Abs(Input.GetAxis("Vertical")) > 0.2f);
-
+        anim.SetBool("isClimb", isClimbing);
     }
 
     void Climb()
@@ -83,6 +86,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             movementVec.y += jump;
+            anim.SetTrigger("Jump");
         }
 
         rbody.velocity = movementVec;
@@ -165,6 +169,11 @@ public class PlayerController : MonoBehaviour
         }*/
 
         rbody.velocity = movementVec;
+        anim.SetFloat("Vspeed", movementVec.y);
+        if(movementVec.x !=0) anim.SetFloat("Hspeed", 1);
+        else anim.SetFloat("Hspeed", 0);
+
+        spaceGuy.localScale = new Vector3( Mathf.Sign(movementVec.x),1,1);
     }
 
 
@@ -218,8 +227,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update() {
-        if (Input.GetKey("escape")) {
+    private void Update()
+    {
+        if (Input.GetKey("escape"))
+        {
             SceneManager.LoadScene("startLevel");
         }
     }
