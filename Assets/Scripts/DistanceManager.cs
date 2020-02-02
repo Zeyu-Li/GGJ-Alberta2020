@@ -21,11 +21,11 @@ public class DistanceManager : MonoBehaviour
     {
         if (!GetComponent<EventGenerator>().enginesDamaged)
         {
-            timeLeft -= Time.deltaTime;
+            timeLeft -= Time.deltaTime * 2;
         }
         else if (GetComponent<EventGenerator>().enginesDamaged)
         {
-            timeLeft -= Time.deltaTime / 2;
+            timeLeft -= Time.deltaTime;
         }
         currentDistance = timeLeft * 33333.33f;
         Debug.Log(currentDistance);
