@@ -11,22 +11,22 @@ Based on my [Unity Template](https://github.com/Zeyu-Li/Unity-Template-2D-2019_3
 
 ## TODO
 
-- [ ] Name and Logo
+- [x] Name and Logo
   - [x] Logo (Andrew)
-  - [ ] Name
-- [ ] Player design (Aniket)
-- [ ] Background Art (Michael)
-- [ ] Level design (Jarred)
+  - [x] Name
+- [x] Player design (Aniket)
+- [x] Background Art (Michael)
+- [x] Level design (Jarred)
 - [x] Tile set (Gaga)
-- [ ] Movement
-  - [ ] Zero-G (Ray)
+- [x] Movement
+  - [x] Zero-G (Ray)
   - [x] General (Jarred)
 - [x] Camera (Jarred?)
-- [ ] Timer (?)
+- [x] Timer (?)
 - [x] Start Screen (Andrew)
-- [ ] Music (Andrew)
-  - [ ] Title (Synth/Futurewave)
-  - [ ] Level Song 
+- [x] Music (Andrew)
+  - [x] Title (Synth/Futurewave)
+  - [x] Level Song 
 - [x] Sound Effects (Andrew)
   - [x] Jump
   - [x] Background sound
