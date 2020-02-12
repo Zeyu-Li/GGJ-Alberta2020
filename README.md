@@ -3,7 +3,7 @@
 
 ## About
 
-![logo](_RawFileAssets\logo\logo.png)
+![logo](_RawFileAssets/logo/logo.png)
 
 This is for the [Global Game Jam 2020 - Open Alberta](https://globalgamejam.org/2020/jam-sites/ggj-edmonton-2020)
 
