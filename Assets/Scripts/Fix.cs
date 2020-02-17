@@ -77,11 +77,11 @@ public class Fix : MonoBehaviour
             s.fontSize = 25;
             if (Input.GetKey(KeyCode.F))
             {
-                GUI.Box(new Rect(cam.WorldToScreenPoint(transform.position).x - 30, cam.WorldToScreenPoint(transform.position).y + 20, 60, 40), "" + (int)((timeRemains * 100) / fixTimeDict[fixType]) + "%", s);
+                GUI.Box(new Rect(cam.WorldToScreenPoint(transform.position).x - 30, cam.WorldToScreenPoint(transform.position).y, 60, 40), "" + (int)((timeRemains * 100) / fixTimeDict[fixType]) + "%", s);
             }
             else
             {
-                GUI.Box(new Rect(cam.WorldToScreenPoint(transform.position).x - 20, cam.WorldToScreenPoint(transform.position).y + 20, 40, 40), "F", s);
+                GUI.Box(new Rect(cam.WorldToScreenPoint(transform.position).x - 20, cam.WorldToScreenPoint(transform.position).y, 40, 40), "F", s);
             }
 
         }

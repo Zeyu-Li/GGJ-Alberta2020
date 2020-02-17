@@ -20,11 +20,11 @@ public class DistanceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GetComponent<EventGenerator>().enginesDamaged)
+        if (!GetComponent<EventGenerator>().GetDamaged().Contains("engine"))
         {
             timeLeft -= Time.deltaTime;
         }
-        else if (GetComponent<EventGenerator>().enginesDamaged)
+        else
         {
             timeLeft -= Time.deltaTime / 2;
         }

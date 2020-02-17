@@ -48,9 +48,7 @@ public class Minimap : MonoBehaviour
         }
         else
         {
-
-
-            foreach (string key in events.GetDamaged())
+            foreach (string key in errorDots.Keys)
             {
 
 

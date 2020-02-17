@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     public float rotationSpd = 0.3f;
     public float maxGlideSpd = 6;
     public float overPressure = 1.6f;
-    bool isRunning = false;
 
     public Vector2 movementVec;
     public Vector2 velocityVec;
@@ -122,6 +121,8 @@ public class PlayerController : MonoBehaviour
         }
         //debug
         velocityVec = rbody.velocity;
+        spaceGuy.localScale = new Vector3(Mathf.Sign(Input.GetAxis("Horizontal")), 1, 1);
+
     }
 
     Vector2 Rotate2DVec(Vector2 v, float angle)
@@ -170,10 +171,10 @@ public class PlayerController : MonoBehaviour
 
         rbody.velocity = movementVec;
         anim.SetFloat("Vspeed", movementVec.y);
-        if(movementVec.x !=0) anim.SetFloat("Hspeed", 1);
+        if (movementVec.x != 0) anim.SetFloat("Hspeed", 1);
         else anim.SetFloat("Hspeed", 0);
 
-        spaceGuy.localScale = new Vector3( Mathf.Sign(movementVec.x),1,1);
+        spaceGuy.localScale = new Vector3(Mathf.Sign(movementVec.x), 1, 1);
     }
 
 

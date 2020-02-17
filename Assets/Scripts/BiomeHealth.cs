@@ -14,11 +14,7 @@ public class BiomeHealth : MonoBehaviour
         currentHealth = totalHealth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 
     public void TakeDamge(int dmg)
     {

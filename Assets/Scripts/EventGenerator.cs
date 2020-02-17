@@ -20,39 +20,7 @@ public class EventGenerator : MonoBehaviour
 
     private float minorTime;
 
-    [HideInInspector]
-    public bool shieldDamaged = false;
-    [HideInInspector]
-    public bool enginesDamaged = false;
-    [HideInInspector]
-    public bool gravityDamaged = false;
-    [HideInInspector]
-    public bool powerDamaged = false;
-    [HideInInspector]
-    public bool sensorsDamaged = false;
-    [HideInInspector]
-    public bool lifeSupportDamaged = false;
 
-    [HideInInspector]
-    public bool jungleFireDamaged = false;
-    [HideInInspector]
-    public bool desertFireDamaged = false;
-    [HideInInspector]
-    public bool oceanFireDamaged = false;
-
-    [HideInInspector]
-    public bool jungleGasDamaged = false;
-    [HideInInspector]
-    public bool desertGasDamaged = false;
-    [HideInInspector]
-    public bool oceanGasDamaged = false;
-
-    [HideInInspector]
-    public bool jungleWindowDamaged = false;
-    [HideInInspector]
-    public bool desertWindowDamaged = false;
-    [HideInInspector]
-    public bool oceanWindowDamaged = false;
 
 
     public Dictionary<string, bool> damageStatus = new Dictionary<string, bool>(){
@@ -92,7 +60,7 @@ public class EventGenerator : MonoBehaviour
         player = GameObject.Find("Player");
 
         globalLight = GameObject.Find("Global Light 2D");
-        engineParticles = GameObject.FindGameObjectWithTag("EngineParticle");
+
 
     }
 
@@ -112,9 +80,11 @@ public class EventGenerator : MonoBehaviour
 
     public List<string> GetDamaged()
     {
+
         List<string> temp = new List<string>();
         foreach (string key in damageStatus.Keys)
         {
+
             if (damageStatus[key])
             {
                 temp.Add(key);
@@ -157,10 +127,7 @@ public class EventGenerator : MonoBehaviour
         {
             jungle.transform.GetChild(0).gameObject.SetActive(false);
         }
-        if (damageStatus["engine"] == false)
-        {
-            engineParticles.transform.GetChild(0).gameObject.SetActive(true);
-        }
+
 
     }
     private void Major()
@@ -171,31 +138,31 @@ public class EventGenerator : MonoBehaviour
             lastMajorTime = Time.time;
             majorTime = Random.Range(majorTimeMin, majorTimeMax);
             Damaged damage = (Damaged)Random.Range(0, 6);
-            if (damage == Damaged.Shields && !shieldDamaged)
+            if (damage == Damaged.Shields && !damageStatus["shield"])
             {
                 damageStatus["shield"] = true;
                 StartCoroutine(Shield());
             }
-            else if (damage == Damaged.Engines && !enginesDamaged)
+            else if (damage == Damaged.Engines && !damageStatus["engine"])
             {
                 damageStatus["engine"] = true;
-                engineParticles.transform.GetChild(0).gameObject.SetActive(false);
+
             }
-            else if (damage == Damaged.Gravity && !gravityDamaged)
+            else if (damage == Damaged.Gravity && !damageStatus["gravity"])
             {
                 damageStatus["gravity"] = true;
                 player.GetComponent<PlayerController>().isZeroG = true;
             }
-            else if (damage == Damaged.PowerGrid && !powerDamaged)
+            else if (damage == Damaged.PowerGrid && !damageStatus["power"])
             {
                 damageStatus["power"] = true;
                 globalLight.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().enabled = false;
             }
-            else if (damage == Damaged.Sensors && !sensorsDamaged)
+            else if (damage == Damaged.Sensors && !damageStatus["sensor"])
             {
                 damageStatus["sensor"] = true;
             }
-            else if (damage == Damaged.LifeSupport && !lifeSupportDamaged)
+            else if (damage == Damaged.LifeSupport && !damageStatus["lifeSupport"])
             {
                 damageStatus["lifeSupport"] = true;
                 StartCoroutine(LifeSupport());
@@ -261,16 +228,16 @@ public class EventGenerator : MonoBehaviour
                 jungle.GetComponent<BiomeHealth>().TakeDamge(10);
                 yield return new WaitForSeconds(1);
             }
-            else if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
+            if (desert.GetComponent<BiomeHealth>().currentHealth > 0)
             {
                 desert.GetComponent<BiomeHealth>().TakeDamge(10);
                 yield return new WaitForSeconds(1);
             }
-            else if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
+            if (ocean.GetComponent<BiomeHealth>().currentHealth > 0)
             {
                 ocean.GetComponent<BiomeHealth>().TakeDamge(10);
                 yield return new WaitForSeconds(1);
-                Debug.Log("1");
+
             }
             else
             {
@@ -298,7 +265,7 @@ public class EventGenerator : MonoBehaviour
             {
                 ocean.GetComponent<BiomeHealth>().TakeDamge(10);
                 yield return new WaitForSeconds(1);
-                Debug.Log("1");
+
             }
             else
             {
